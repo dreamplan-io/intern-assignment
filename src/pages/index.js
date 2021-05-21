@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Head from 'next/head';
 
 export default function Home({results}) {
-  const API_KEY = '5b2bce4e400896b9cb072f664430f1e0'
+  const API_KEY = 'nøgle'
 const trending = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=da-DK`
   
   console.log(results)

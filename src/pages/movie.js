@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Head from 'next/head';
 
 export default function Home() {
-    const API_KEY = '5b2bce4e400896b9cb072f664430f1e0'
+    const API_KEY = 'nøgle'
     
     return (
       <div>
