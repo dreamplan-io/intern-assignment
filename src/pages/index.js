@@ -1,17 +1,30 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
+import Movies from '../components/Movies'
 
-export default function Home() {
-  const API_KEY = 'brug denne konstant til din api key, så vi nemt kan teste med vores egen senere'
-  
+const API_KEY = 'b60560a9a0b4b9048d995101f2d38707'
+export default function Home({movies}) {
+  console.log(movies)
   return (
     <div>
       <Head>
         <title>Intern assignment</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <p className="text-xl font-medium text-gray-800 mx-10 my-10">Movielist</p>
-      <img src={image} />
+      <Movies movies={movies} />
     </div>
   );
+}
+
+
+export async function getServerSideProps(context){
+  const res = await fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}&language=da`)
+   .then(res => res.json()); 
+  
+  return {
+    props: {
+      movies : res.results,
+    }
+  }
+
 }
