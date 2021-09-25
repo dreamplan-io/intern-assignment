@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export function useMovies() {
   const [movies, setMovies] = useState([]);
@@ -14,7 +14,6 @@ export function useMovies() {
       if (response.ok) {
         const moviesData = await response.json();
         setMovies(moviesData.results);
-        console.log(moviesData.results);
         setIsLoading(false);
       } else {
         throw new Error(response.statusText);

@@ -2,7 +2,6 @@ import React from 'react';
 import Head from 'next/head';
 import { useMovies } from '../components/useMovies';
 import Movies from '../components/Movies';
-
 export default function Home() {
   const API_KEY =
     'paste your movie apikey here so we can easily test your solution with our own apikey';
