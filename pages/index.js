@@ -1,8 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
-import Header from '../../components/Header';
-import Slider from '../../components/Slider';
-import MoviesCollection from '../../components/MoviesCollection';
+import Header from '../components/Header';
+import Slider from '../components/Slider';
+import MoviesCollection from '../components/MoviesCollection';
 
 export default function Home({popularMovies}) {
   const API_KEY = 'paste your movie apikey here so we can easily test your solution with our own apikey'

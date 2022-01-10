@@ -16,6 +16,6 @@ module.exports = {
     }
   },
   variants: {},
-  plugins: [require('tailwind-scrollbar-hide'),'tailwindcss', 'postcss-preset-env']
+  plugins: [require('tailwind-scrollbar-hide'),'tailwindcss']
   
 };
