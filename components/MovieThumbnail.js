@@ -6,6 +6,10 @@ import { StarIcon } from '@heroicons/react/solid';
 function MovieThumbnail({ result }) {
   const BASE_URL = 'https://image.tmdb.org/t/p/original/';
   const router = useRouter();
+  const addToFavoritesHandler = () => {
+    const data = result.id;
+    console.log(data);
+  }
 
   return (
     <div className="relative">
@@ -40,7 +44,8 @@ function MovieThumbnail({ result }) {
       </div>
       <HeartIcon
         className="absolute right-0 bottom-0 m-2 h-8 w-8 cursor-pointer z-20 hover:text-red-300"
-        onClick={() => router.push('/favorites')}
+        onClick={addToFavoritesHandler}
+        // onClick={() => router.push('/favorites')}
       />
     </div>
   );

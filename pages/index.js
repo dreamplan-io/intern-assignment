@@ -25,14 +25,28 @@ export default function Home({popularMovies}) {
 }
 
 export async function getServerSideProps(context) {
+
+  const [popularMoviesRes1, popularMoviesRes2, popularMoviesRes3 ] = await Promise.all([
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=dk&page=1`),
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=dk&page=2`),
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=dk&page=3`)
+]);
+
+  const [popularMovies1, popularMovies2, popularMovies3 ]= await Promise.all([
+    popularMoviesRes1.json(),
+    popularMoviesRes2.json(),
+    popularMoviesRes3.json(),
+  ]);
+
+  //const popularMovies = popularMovies2;
+  // popularMovies.push(popularMovies1);
+  // popularMovies.push(popularMovies2);
+  // popularMovies.push(popularMovies3);
   
-
-  const popularMoviesRes = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=dk&page=1`);
-  const popularMovies = await popularMoviesRes.json();
-
   return {
     props: {
-      popularMovies: popularMovies.results,
+      popularMovies: popularMovies1.results,
+      popularMovies2: popularMovies2.results,
     },
   };
 }
