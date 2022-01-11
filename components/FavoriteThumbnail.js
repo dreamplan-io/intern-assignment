@@ -2,11 +2,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { HeartIcon } from '@heroicons/react/solid';
 import { useContext } from 'react';
-import FavoritesContext from '../store/favorites-context'
+import FavoritesContext from '../store/favorites-context';
 
-function MovieThumbnail({ result }) {
+function FavoriteThumbnail({ result }) {
   const BASE_URL = 'https://image.tmdb.org/t/p/original/';
-  const router = useRouter();
   const favoritesCtx = useContext(FavoritesContext);
   const movieIsFavorite = favoritesCtx.movieIsFavorite(result.id);
 
@@ -22,7 +21,7 @@ function MovieThumbnail({ result }) {
         `${BASE_URL}${result.poster_path}`
       })
     }
-  }
+}
 
   return (
     <div className="relative">
@@ -31,11 +30,7 @@ function MovieThumbnail({ result }) {
         onClick={() => router.push(`/movie/${result.id}`)}>
         <div>
           <Image
-            className="z-100"
-            src={
-              `${BASE_URL}${result.backdrop_path || result.poster_path}` ||
-              `${BASE_URL}${result.poster_path}`
-            }
+            src={result.src}
             layout="fill"
             objectFit="cover"
           />
@@ -48,25 +43,20 @@ function MovieThumbnail({ result }) {
             </h1>
             <h2 className="flex gap-1 text-sm lowercase items-center">
               <span className="">Rating:</span>
-              <p className="">{result.vote_average.toFixed(1)}</p>
-              {/* When clicked the HeartIcon will turn text-red-500 */}
+              <p className="">{result.vote_average}</p>
             </h2>
           </div>
         </div>
       </div>
-      <button 
+      <button
         className="absolute right-0 bottom-0 m-2 h-8 w-8 cursor-pointer z-20 hover:text-red-300"
         onClick = {toggleFavoriteStatusHandler}
         // onClick={() => router.push('/favorites')}
       >
-        {movieIsFavorite ? <HeartIcon className="text-red-300" /> : <HeartIcon className="text-white hover:text-red-300"
-          
-        />}
-        
+        {movieIsFavorite ? <HeartIcon className="text-red-300" /> : <HeartIcon className="text-white hover:text-red-300"/>}
       </button>
     </div>
   );
 }
 
-export default MovieThumbnail;
-
+export default FavoriteThumbnail;
