@@ -6,6 +6,7 @@ import FavoritesContext from '../store/favorites-context';
 
 function FavoriteThumbnail({ result }) {
   const BASE_URL = 'https://image.tmdb.org/t/p/original/';
+  const router = useRouter();
   const favoritesCtx = useContext(FavoritesContext);
   const movieIsFavorite = favoritesCtx.movieIsFavorite(result.id);
 
@@ -49,11 +50,10 @@ function FavoriteThumbnail({ result }) {
         </div>
       </div>
       <button
-        className="absolute right-0 bottom-0 m-2 h-8 w-8 cursor-pointer z-20 hover:text-red-300"
+        className="absolute right-0 bottom-0 m-2 h-8 w-8 cursor-pointer z-20 hover:text-red-400"
         onClick = {toggleFavoriteStatusHandler}
-        // onClick={() => router.push('/favorites')}
       >
-        {movieIsFavorite ? <HeartIcon className="text-red-300" /> : <HeartIcon className="text-white hover:text-red-300"/>}
+        {movieIsFavorite ? <HeartIcon className="text-red-400" /> : <HeartIcon className="text-white hover:text-red-400"/>}
       </button>
     </div>
   );
