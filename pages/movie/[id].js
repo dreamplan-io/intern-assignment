@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Header from '../../components/Header';
 
 function Movie({ result }) {
+  console.log(result);
   const BASE_URL = 'https://image.tmdb.org/t/p/original/';
 
   return (

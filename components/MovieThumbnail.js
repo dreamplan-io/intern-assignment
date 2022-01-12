@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import FavoritesContext from '../store/favorites-context'
 
 function MovieThumbnail({ result }) {
+  //console.log(result);
   const BASE_URL = 'https://image.tmdb.org/t/p/original/';
   const router = useRouter();
   const favoritesCtx = useContext(FavoritesContext);
@@ -16,7 +17,7 @@ function MovieThumbnail({ result }) {
     } else {
       favoritesCtx.addFavorite({
         id: result.id,
-        title: result.title || result.original_name,
+        title: result.title || result.original_title,
         vote_average: result.vote_average.toFixed(1),
         src: `${BASE_URL}${result.backdrop_path || result.poster_path}` ||
         `${BASE_URL}${result.poster_path}`
@@ -29,9 +30,9 @@ function MovieThumbnail({ result }) {
       <div
         className="flex flex-col min-w-[250px] min-h-[170px] md:min-w-[330px] md:min-h-[210px] rounded-lg overflow-hidden shadow-xl cursor-pointer border-[3px] border-[#f9f9f9] border-opacity-10  hover:border-opacity-80 hover:shadow-2xl transform hover:scale-105 transition duration-300"
         onClick={() => router.push(`/movie/${result.id}`)}>
-        <div>
+        <div className="">
           <Image
-            className="z-100"
+            className=""
             src={
               `${BASE_URL}${result.backdrop_path || result.poster_path}` ||
               `${BASE_URL}${result.poster_path}`
@@ -44,7 +45,7 @@ function MovieThumbnail({ result }) {
         <div className="absolute bottom-0 bg-black/30 z-10 p-2 rounded w-full">
           <div>
             <h1 className="uppercase sm:text-l md:text-xl lg:text-2xl font-bold">
-              {result.title || result.original_name}
+            {result.title || result.original_title}
             </h1>
             <h2 className="flex gap-1 text-sm lowercase items-center">
               <span className="">Rating:</span>

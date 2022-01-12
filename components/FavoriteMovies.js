@@ -10,9 +10,9 @@ function FavoriteMovies({ results }) {
 
 
     return (
-        <section className="text-center mt-5 text-3xl">
+        <section className="relative flex flex-col space-y-2 my-10 px-8 max-w-[1400px]">
             <h1>Favorite Movies</h1>
-            <div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-x-2 p-2 -m-2">
                 {results.map((result) => (
                     <FavoriteThumbnail key={result.id} result={result} />
                 ))}
