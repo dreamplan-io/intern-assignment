@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState, useReducer } from "react";
 
 const FavoritesContext = createContext({
     favorites: [],
@@ -9,7 +9,16 @@ const FavoritesContext = createContext({
 });
 
 export function FavoritesContextProvider(props) {
-    const [userFavorites, setUserFavorites] = useState([]);
+    // const [userFavorites, setUserFavorites] = useState([]);
+    const [userFavorites, setUserFavorites] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const saved = localStorage.getItem('favorites');
+            const initialValue = JSON.parse(saved);
+            return initialValue;
+        } else {
+            return []
+        }
+    });
 
     function addFavoriteHandler(favoriteMovie) {
         setUserFavorites((prevUserFavorites) => {
@@ -32,6 +41,10 @@ export function FavoritesContextProvider(props) {
         removeFavorite: removeFavoriteHandler,
         movieIsFavorite: movieIsFavoriteHandler
     }
+
+    useEffect(() => {
+        localStorage.setItem('favorites', JSON.stringify(userFavorites))
+    }, [userFavorites]);
 
     return <FavoritesContext.Provider value={context}>
         {props.children}
