@@ -17,7 +17,7 @@ module.exports = {
     // '@typescript-eslint'
   ],
   rules: {
-    allowForLoopAfterthoughts: true,
+    allowForLoopAfterthoughts: 0,
     'max-len': ['error', { code: 150 }],
     'no-use-before-define': ['error', { functions: false, classes: false }],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
