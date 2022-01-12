@@ -8,7 +8,7 @@ function favorites() {
     let content;
 
     if (favoritesCtx.totalFavorites === 0) {
-        content = <p className="text-center">You got no favorites yet. Start adding some?</p>
+        content = <p className="text-center mt-10">You got no favorites yet. Start adding some?</p>
     } else {
         content = <FavoriteMovies results={favoritesCtx.favorites} />
     }
