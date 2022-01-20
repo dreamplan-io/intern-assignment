@@ -1,10 +1,11 @@
+import React, { useContext, useState } from 'react';
 import { HeartIcon, XIcon } from '@heroicons/react/solid';
 import Head from 'next/head';
 import Image from 'next/image';
-import Header from '../../components/Header';
-import { useContext, useState } from 'react';
-import FavoritesContext from '../../store/favorites-context';
 import ReactPlayer from 'react-player';
+import Header from '../../components/Header';
+
+import FavoritesContext from '../../store/favorites-context';
 
 function Movie({ result }) {
   const BASE_URL = 'https://image.tmdb.org/t/p/original/';
@@ -23,8 +24,8 @@ function Movie({ result }) {
         title: result.title || result.original_title,
         vote_average: result.vote_average.toFixed(1),
         src:
-          `${BASE_URL}${result.backdrop_path || result.poster_path}` ||
-          `${BASE_URL}${result.poster_path}`
+          `${BASE_URL}${result.backdrop_path || result.poster_path}`
+          || `${BASE_URL}${result.poster_path}`,
       });
     }
   }
@@ -41,8 +42,8 @@ function Movie({ result }) {
         <div className="relative min-h-[calc(100vh-80px)]">
           <Image
             src={
-              `${BASE_URL}${result.backdrop_path || result.poster_path}` ||
-              `${BASE_URL}${result.poster_path}`
+              `${BASE_URL}${result.backdrop_path || result.poster_path}`
+              || `${BASE_URL}${result.poster_path}`
             }
             layout="fill"
             objectFit="cover"
@@ -53,11 +54,19 @@ function Movie({ result }) {
             {result.title || result.original_title}
           </h1>
           <p>
-            {result.release_date || result.first_air_date} • {Math.floor(result.runtime / 60)}h{' '}
-            {result.runtime % 60}m • {result.vote_average} •{' '}
-            {result.genres.map((genre, i) => {
-              return i === 0 ? genre.name : ', ' + genre.name;
-            })}
+            {result.release_date || result.first_air_date}
+            {' '}
+            •
+            {Math.floor(result.runtime / 60)}
+            h
+            {' '}
+            {result.runtime % 60}
+            m •
+            {result.vote_average}
+            {' '}
+            •
+            {' '}
+            {result.genres.map((genre, i) => (i === 0 ? genre.name : `, ${genre.name}`))}
           </p>
           <div className="flex gap-3 items-center">
             <button
@@ -69,7 +78,8 @@ function Movie({ result }) {
             </button>
             <button
               className="flex items-center gap-2 border-2 border-white rounded-full bg-black/60 px-6 py-2.5 "
-              onClick={toggleFavoriteStatusHandler}>
+              onClick={toggleFavoriteStatusHandler}
+            >
               {movieIsFavorite ? (
                 <HeartIcon className="text-red-400 w-6" />
               ) : (
@@ -83,31 +93,31 @@ function Movie({ result }) {
         {/* Build the background overlay for the trailer */}
 
         {showPlayer && (
-          <div 
-            className="absolute inset-0 bg-black opacity-50 h-full w-full z-50" 
+          <div
+            className="absolute inset-0 bg-black opacity-50 h-full w-full z-50"
             onClick={() => setShowPlayer(false)}
           />
         )}
 
-        <div className={`absolute top-3 inset-x-[7%] md:inset-x-[13%] rounded overflow-hidden transiion duration-1000 ${showPlayer ? "opacity-100 z-50" : "opacity-0"}`}
-        >
-          <div className='flex items-center justify-between bg-black text-[#f9f9f9] p-3.5'>
-            <span className='semibold'>Play Trailer</span>
-            <div className="cursor-pointer w-8 h-8 flex justify-center items-center rounded-lg opacity-50 hover:opacity-75 hover:bg-[#0f0f0f]"
-            onClick={() => setShowPlayer(false)}
+        <div className={`absolute top-3 inset-x-[7%] md:inset-x-[13%] rounded overflow-hidden transiion duration-1000 ${showPlayer ? 'opacity-100 z-50' : 'opacity-0'}`}>
+          <div className="flex items-center justify-between bg-black text-[#f9f9f9] p-3.5">
+            <span className="semibold">Play Trailer</span>
+            <div
+              className="cursor-pointer w-8 h-8 flex justify-center items-center rounded-lg opacity-50 hover:opacity-75 hover:bg-[#0f0f0f]"
+              onClick={() => setShowPlayer(false)}
             >
               <XIcon className="h-5" />
             </div>
           </div>
           <div className="relative pt-[56.25%]">
             <ReactPlayer
-                url={`https://www.youtube.com/watch?v=${result.videos?.results[index]?.key}`}
-                width="100%"
-                height="100%"
-                style={{ position: "absolute", top: "0", left: "0" }}
-                controls={true}
-                playing={showPlayer}
-                muted={true}
+              url={`https://www.youtube.com/watch?v=${result.videos?.results[index]?.key}`}
+              width="100%"
+              height="100%"
+              style={{ position: 'absolute', top: '0', left: '0' }}
+              controls
+              playing={showPlayer}
+              muted
             />
           </div>
         </div>
@@ -120,14 +130,14 @@ function Movie({ result }) {
 export default Movie;
 
 export async function getServerSideProps(context) {
-  const id = context.query.id;
+  const { id } = context.query;
   const request = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.API_KEY}&language=dk&append_to_response=videos`
+    `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.API_KEY}&language=dk&append_to_response=videos`,
   ).then((response) => response.json());
 
   return {
     props: {
-      result: request
-    }
+      result: request,
+    },
   };
 }

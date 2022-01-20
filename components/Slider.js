@@ -1,4 +1,5 @@
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import React from 'react';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 
 function Slider() {
@@ -10,7 +11,8 @@ function Slider() {
         showStatus={false}
         showIndicators={false}
         showThumbs={false}
-        interval={5000}>
+        interval={5000}
+      >
         <div>
           <img loading="lazy" src="/images/slider-1.jpg" alt="" />
         </div>

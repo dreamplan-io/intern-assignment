@@ -1,8 +1,9 @@
+import React, { useContext } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { HeartIcon } from '@heroicons/react/solid';
-import { useContext } from 'react';
-import FavoritesContext from '../store/favorites-context'
+
+import FavoritesContext from '../store/favorites-context';
 
 function MovieThumbnail({ result }) {
   const BASE_URL = 'https://image.tmdb.org/t/p/original/';
@@ -12,15 +13,15 @@ function MovieThumbnail({ result }) {
 
   function toggleFavoriteStatusHandler() {
     if (movieIsFavorite) {
-      favoritesCtx.removeFavorite(result.id)
+      favoritesCtx.removeFavorite(result.id);
     } else {
       favoritesCtx.addFavorite({
         id: result.id,
         title: result.title || result.original_title,
         vote_average: result.vote_average.toFixed(1),
-        src: `${BASE_URL}${result.backdrop_path || result.poster_path}` ||
-        `${BASE_URL}${result.poster_path}`
-      })
+        src: `${BASE_URL}${result.backdrop_path || result.poster_path}`
+        || `${BASE_URL}${result.poster_path}`,
+      });
     }
   }
 
@@ -28,13 +29,14 @@ function MovieThumbnail({ result }) {
     <div className="relative">
       <div
         className="flex flex-col min-w-[250px] min-h-[170px] md:min-w-[330px] md:min-h-[210px] rounded-lg overflow-hidden shadow-xl cursor-pointer border-[3px] border-[#f9f9f9] border-opacity-10  hover:border-opacity-80 hover:shadow-2xl transform hover:scale-105 transition duration-300"
-        onClick={() => router.push(`/movie/${result.id}`)}>
+        onClick={() => router.push(`/movie/${result.id}`)}
+      >
         <div className="">
           <Image
             className=""
             src={
-              `${BASE_URL}${result.backdrop_path || result.poster_path}` ||
-              `${BASE_URL}${result.poster_path}`
+              `${BASE_URL}${result.backdrop_path || result.poster_path}`
+              || `${BASE_URL}${result.poster_path}`
             }
             layout="fill"
             objectFit="cover"
@@ -44,7 +46,7 @@ function MovieThumbnail({ result }) {
         <div className="absolute bottom-0 bg-black/30 z-10 p-2 rounded w-full">
           <div>
             <h1 className="uppercase sm:text-l md:text-xl lg:text-2xl font-bold">
-            {result.title || result.original_title}
+              {result.title || result.original_title}
             </h1>
             <h2 className="flex gap-1 text-sm lowercase items-center">
               <span className="">Rating:</span>
@@ -53,16 +55,16 @@ function MovieThumbnail({ result }) {
           </div>
         </div>
       </div>
-      <button 
+      <button
         className="absolute right-0 bottom-0 m-2 cursor-pointer z-20 hover:text-red-400 p-2"
-        onClick = {toggleFavoriteStatusHandler}
+        onClick={toggleFavoriteStatusHandler}
       >
-        {movieIsFavorite ? <HeartIcon className="text-red-400 w-8" /> : <HeartIcon className="text-white hover:text-red-400 w-8"  
-        />} 
+        {movieIsFavorite ? <HeartIcon className="text-red-400 w-8" /> : (
+          <HeartIcon className="text-white hover:text-red-400 w-8" />
+        )}
       </button>
     </div>
   );
 }
 
 export default MovieThumbnail;
-

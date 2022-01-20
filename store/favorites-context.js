@@ -1,4 +1,5 @@
-import { createContext, useEffect, useState, useReducer } from "react";
+import React from 'react';
+import { createContext, useEffect, useState } from "react";
 
 const FavoritesContext = createContext({
     favorites: [],
@@ -9,7 +10,7 @@ const FavoritesContext = createContext({
 });
 
 export function FavoritesContextProvider(props) {
-    // const [userFavorites, setUserFavorites] = useState([]);
+    
     const [userFavorites, setUserFavorites] = useState(() => {
         if (typeof window !== 'undefined') {
             const saved = localStorage.getItem('favorites');
@@ -25,11 +26,13 @@ export function FavoritesContextProvider(props) {
             return prevUserFavorites.concat(favoriteMovie)
         });
     }
+
     function removeFavoriteHandler(movieId) {
         setUserFavorites(prevUserFavorites => {  
             return prevUserFavorites.filter(movie => movie.id !== movieId)
         })
     }
+    
     function movieIsFavoriteHandler(movieId) {
         return userFavorites.some(movie => movie.id === movieId);
     }
