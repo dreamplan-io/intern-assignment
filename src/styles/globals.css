@@ -6,8 +6,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -29,12 +29,12 @@ a {
 }
 
 .main {
-  padding: 5rem 0;
-  flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
 }
 
 .footer {
@@ -46,9 +46,9 @@ a {
   align-items: center;
 }
 
-.footer img {
+/* .footer img {
   margin-left: 0.5rem;
-}
+} */
 
 .footer a {
   display: flex;
@@ -68,7 +68,7 @@ a {
 }
 
 .title {
-  @apply bg-red-100 py-2 px-4 rounded;
+  @apply bg-white py-2 px-4 rounded;
 
   margin: 0;
   line-height: 1.15;
@@ -104,27 +104,41 @@ a {
 }
 
 .card {
+  width: 300px;
   margin: 1rem;
-  flex-basis: 45%;
-  padding: 1.5rem;
-  text-align: left;
+  /* flex-basis: 45%; */
+  /* padding: 1.5rem; */
+  /* text-align: left; */
   color: inherit;
   text-decoration: none;
   border: 1px solid #eaeaea;
-  border-radius: 10px;
+  border-radius: 3px;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 
 .card:hover,
 .card:focus,
-.card:active {
+.card:active .card:hover .overview {
   color: #0070f3;
   border-color: #0070f3;
+  transform: translateY(0);
+}
+.overview {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  padding: 1rem;
+  max-height: 100%;
+  background-color: whitesmoke;
+  transform: translateY(101%);
+  transition: 0.3s ease-in;
 }
 
 .card h3 {
   margin: 0 0 1rem 0;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 
 .card p {
@@ -135,6 +149,26 @@ a {
 
 .logo {
   height: 1em;
+}
+
+.li,
+ul {
+  list-style: none;
+  height: 410;
+}
+
+.poster {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+.img {
+  display: unset;
+}
+.header {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(20, 18, 18);
 }
 
 @media (max-width: 600px) {
